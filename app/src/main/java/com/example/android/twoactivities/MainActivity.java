@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (order.size() > 0) {
+        if (order.size() >= 0) {
             outState.putStringArrayList("order", order);
         }
     }
