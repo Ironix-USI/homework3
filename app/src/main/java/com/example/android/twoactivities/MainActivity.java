@@ -23,32 +23,37 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import java.util.*;
 
 /**
- * The TwoActivities app contains two activities and sends messages
- * (intents) between them.
+ * Version of TwoActivities app that prints messages to the logs
+ * on Activity lifecycle state changes.
  */
 public class MainActivity extends AppCompatActivity {
-    // Class name for Log tag
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    // Unique tag required for the intent extra
-    public static final String EXTRA_MESSAGE
-            = "com.example.android.twoactivities.extra.MESSAGE";
     // Unique tag for the intent reply
-    public static final int TEXT_REQUEST = 1;
+    public static final int ITEM_REQUEST = 1;
 
-    // EditText view for the message
-    private EditText mMessageEditText;
-    // TextView for the reply header
-    private TextView mReplyHeadTextView;
-    // TextView for the reply body
-    private TextView mReplyTextView;
+    private ArrayList<View> items = new ArrayList<>();
+    private ArrayList<String> order = new ArrayList<>();
+
+    /**
+     * Maintains the Activity state across configuration changes.
+     *
+     * @param outState Activity state data to save
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (order.size() > 0) {
+            outState.putStringArrayList("order", order);
+        }
+    }
 
     /**
      * Initializes the activity.
      *
-     * @param savedInstanceState The current state data.
+     * @param savedInstanceState The current state data
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,34 +61,66 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Initialize all the view variables.
-        mMessageEditText = findViewById(R.id.editText_main);
-        mReplyHeadTextView = findViewById(R.id.text_header_reply);
-        mReplyTextView = findViewById(R.id.text_message_reply);
-    }
+        items.add(findViewById(R.id.item1));
+        items.add(findViewById(R.id.item2));
+        items.add(findViewById(R.id.item3));
+        items.add(findViewById(R.id.item4));
+        items.add(findViewById(R.id.item5));
+        items.add(findViewById(R.id.item6));
+        items.add(findViewById(R.id.item7));
+        items.add(findViewById(R.id.item8));
+        items.add(findViewById(R.id.item9));
+        items.add(findViewById(R.id.item10));
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (mReplyHeadTextView.getVisibility() == View.VISIBLE) {
-            outState.putBoolean("reply_visible", true);
-            outState.putString("reply_text",mReplyTextView.getText().toString());
+        // Restore the state.
+        if (savedInstanceState != null) {
+            order = savedInstanceState.getStringArrayList("order");
+            if (order != null) {
+                for (int i = 0; i < order.size(); i++) {
+                    TextView it = (TextView) items.get(i);
+                    it.setVisibility(View.VISIBLE);
+                    it.setText(order.get(i));
+                }
+            }
         }
     }
 
     /**
-     * Handles the onClick for the "Send" button. Gets the value of the main EditText,
-     * creates an intent, and launches the second activity with that intent.
+     * Handles the onClick for the "Send" button. Gets the value of the main
+     * EditText, creates an intent, and launches the second activity with
+     * that intent.
      *
      * The return intent from the second activity is onActivityResult().
      *
      * @param view The view (Button) that was clicked.
      */
-    public void launchSecondActivity(View view) {
-        Log.d(LOG_TAG, "Button clicked!");
+    public void addItem(View view) {
         Intent intent = new Intent(this, SecondActivity.class);
-        String message = mMessageEditText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivityForResult(intent, TEXT_REQUEST);
+        startActivityForResult(intent, ITEM_REQUEST);
+    }
+
+    public void clear(View view) {
+        TextView emp = findViewById(R.id.item1);
+        emp.setText("");
+        emp = findViewById(R.id.item2);
+        emp.setText("");
+        emp = findViewById(R.id.item3);
+        emp.setText("");
+        emp = findViewById(R.id.item4);
+        emp.setText("");
+        emp = findViewById(R.id.item5);
+        emp.setText("");
+        emp = findViewById(R.id.item6);
+        emp.setText("");
+        emp = findViewById(R.id.item7);
+        emp.setText("");
+        emp = findViewById(R.id.item8);
+        emp.setText("");
+        emp = findViewById(R.id.item9);
+        emp.setText("");
+        emp = findViewById(R.id.item10);
+        emp.setText("");
+        order = new ArrayList<>();
     }
 
     /**
@@ -98,17 +135,16 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Test for the right intent reply.
-        if (requestCode == TEXT_REQUEST) {
+        if (requestCode == ITEM_REQUEST) {
             // Test to make sure the intent reply result was good.
             if (resultCode == RESULT_OK) {
-                String reply = data.getStringExtra(SecondActivity.EXTRA_REPLY);
-
-                // Make the reply head visible.
-                mReplyHeadTextView.setVisibility(View.VISIBLE);
-
-                // Set the reply and make it visible.
-                mReplyTextView.setText(reply);
-                mReplyTextView.setVisibility(View.VISIBLE);
+                String it = data.getStringExtra(SecondActivity.EXTRA_ITEMS);
+                order.add(it);
+                for (int i = 0; i < order.size(); i++) {
+                    TextView it1 = (TextView) items.get(i);
+                    it1.setVisibility(View.VISIBLE);
+                    it1.setText(order.get(i));
+                }
             }
         }
     }
