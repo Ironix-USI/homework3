@@ -1,21 +1,24 @@
-TwoActivities - Solution Code
-=============================
+TwoActivitiesLifecycle - Solution Code
+======================================
 
-The TwoActivities app contains two activities. It uses an explicit Intent
-to launch one Activity from another, and uses Intent extras to pass data
-between them. 
+TwoActivitiesLifeCycle is a version of TwoActivities that prints messages
+to the logs on Activity lifecycle state changes. It also implements
+onSaveInstanceState() to maintain the Activity state across
+configuration changes.
 
 Pre-requisites
 --------------
 
 For this app you should be familiar with:
 
-* Creating and running apps in Android Studio.
+* The TwoActivities app.
+* The Android Activity lifecycle.
+* The effect of configuration changes (such as rotation) on Activity state.
 
 Getting Started
 ---------------
 
-1. Download and open the app in Android Studio.
+1. Download and open this sample in Android Studio.
 
 License
 -------
@@ -36,4 +39,3 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
 License for the specific language governing permissions and limitations under
 the License.
-# homework3

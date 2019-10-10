@@ -19,44 +19,30 @@ package com.example.android.twoactivities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * SecondActivity defines the second activity in the app. It is
- * launched from an intent with a message, and sends an intent
- * back with a second message.
+ * SecondActivity defines the second activity in the app. It is launched
+ * from an intent with a message, and sends an intent back with a second
+ * message.
  */
 public class SecondActivity extends AppCompatActivity {
-    // Unique tag for the intent reply.
-    public static final String EXTRA_REPLY =
-            "com.example.android.twoactivities.extra.REPLY";
 
-    // EditText for the reply.
-    private EditText mReply;
+    // Unique tag for the intent reply.
+    public static final String EXTRA_ITEMS = "com.example.android.twoactivities.extra.ITEMS";
 
     /**
      * Initializes the activity.
      *
-     * @param savedInstanceState The current state data
+     * @param savedInstanceState The current state data.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-
-        // Initialize view variables.
-        mReply = findViewById(R.id.editText_second);
-
-        // Get the intent that launched this activity, and the message in
-        // the intent extra.
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
-        // Put that message into the text_message TextView
-        TextView textView = findViewById(R.id.text_message);
-        textView.setText(message);
     }
 
     /**
@@ -66,15 +52,64 @@ public class SecondActivity extends AppCompatActivity {
      *
      * @param view The view (Button) that was clicked.
      */
-    public void returnReply(View view) {
-        // Get the reply message from the edit text.
-        String reply = mReply.getText().toString();
+    public void select(View view) {
 
         // Create a new intent for the reply, add the reply message to it
         // as an extra, set the intent result, and close the activity.
-        Intent replyIntent = new Intent();
-        replyIntent.putExtra(EXTRA_REPLY, reply);
-        setResult(RESULT_OK, replyIntent);
-        finish();
+        Intent itemIntent = new Intent();
+        switch (view.getId()) {
+            case R.id.cheese:
+                itemIntent.putExtra(EXTRA_ITEMS, "cheese");
+                setResult(RESULT_OK, itemIntent);
+                finish();
+                break;
+            case R.id.rice:
+                itemIntent.putExtra(EXTRA_ITEMS, "rice");
+                setResult(RESULT_OK, itemIntent);
+                finish();
+                break;
+            case R.id.apple:
+                itemIntent.putExtra(EXTRA_ITEMS, "apple");
+                setResult(RESULT_OK, itemIntent);
+                finish();
+                break;
+            case R.id.rosti:
+                itemIntent.putExtra(EXTRA_ITEMS, "rosti");
+                setResult(RESULT_OK, itemIntent);
+                finish();
+                break;
+            case R.id.muesli:
+                itemIntent.putExtra(EXTRA_ITEMS, "muesli");
+                setResult(RESULT_OK, itemIntent);
+                finish();
+                break;
+            case R.id.orange:
+                itemIntent.putExtra(EXTRA_ITEMS, "orange");
+                setResult(RESULT_OK, itemIntent);
+                finish();
+                break;
+            case R.id.pear:
+                itemIntent.putExtra(EXTRA_ITEMS, "pear");
+                setResult(RESULT_OK, itemIntent);
+                finish();
+                break;
+            case R.id.peach:
+                itemIntent.putExtra(EXTRA_ITEMS, "peach");
+                setResult(RESULT_OK, itemIntent);
+                finish();
+                break;
+            case R.id.lime:
+                itemIntent.putExtra(EXTRA_ITEMS, "lime");
+                setResult(RESULT_OK, itemIntent);
+                finish();
+                break;
+            case R.id.kiwi:
+                itemIntent.putExtra(EXTRA_ITEMS, "kiwi");
+                setResult(RESULT_OK, itemIntent);
+                finish();
+                break;
+        }
+
     }
+
 }
