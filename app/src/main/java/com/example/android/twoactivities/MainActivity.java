@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.util.*;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<View> items = new ArrayList<>();
     private ArrayList<String> order = new ArrayList<>();
+    private Button buttonAdd;
 
     /**
      * Maintains the Activity state across configuration changes.
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         items.add(findViewById(R.id.item8));
         items.add(findViewById(R.id.item9));
         items.add(findViewById(R.id.item10));
+        buttonAdd = (Button) findViewById(R.id.add);
 
         // Restore the state.
         if (savedInstanceState != null) {
@@ -100,26 +103,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clear(View view) {
-        TextView emp = findViewById(R.id.item1);
-        emp.setText("");
-        emp = findViewById(R.id.item2);
-        emp.setText("");
-        emp = findViewById(R.id.item3);
-        emp.setText("");
-        emp = findViewById(R.id.item4);
-        emp.setText("");
-        emp = findViewById(R.id.item5);
-        emp.setText("");
-        emp = findViewById(R.id.item6);
-        emp.setText("");
-        emp = findViewById(R.id.item7);
-        emp.setText("");
-        emp = findViewById(R.id.item8);
-        emp.setText("");
-        emp = findViewById(R.id.item9);
-        emp.setText("");
-        emp = findViewById(R.id.item10);
-        emp.setText("");
+
+        for(int i=0; i<order.size(); i++) {
+            String textViewID = "item" + (i + 1);
+            int resID = getResources().getIdentifier(textViewID,"id", getPackageName());
+            TextView emp = findViewById(resID);
+            emp.setText((""));
+        }
+//        TextView emp = findViewById(R.id.item1);
+//        emp.setText("");
+//        emp = findViewById(R.id.item2);
+//        emp.setText("");
+//        emp = findViewById(R.id.item3);
+//        emp.setText("");
+//        emp = findViewById(R.id.item4);
+//        emp.setText("");
+//        emp = findViewById(R.id.item5);
+//        emp.setText("");
+//        emp = findViewById(R.id.item6);
+//        emp.setText("");
+//        emp = findViewById(R.id.item7);
+//        emp.setText("");
+//        emp = findViewById(R.id.item8);
+//        emp.setText("");
+//        emp = findViewById(R.id.item9);
+//        emp.setText("");
+//        emp = findViewById(R.id.item10);
+//        emp.setText("");
         order = new ArrayList<>();
     }
 
