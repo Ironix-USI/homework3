@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
         // Restore the state.
         if (savedInstanceState != null) {
             order = savedInstanceState.getStringArrayList("order");
+            if (order.size() > 9){
+                btnAdd.setEnabled(false);
+            }
             if (order != null) {
                 for (int i = 0; i < order.size(); i++) {
                     TextView it = (TextView) items.get(i);
