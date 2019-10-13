@@ -28,4 +28,7 @@
     <string name="peach">Peach</string>
     <string name="lime">Lime</string>
     <string name="kiwi">Kiwi</string>
+    <string name="shopping_list_header">Shopping List</string>
+    <string name="items_header">List of Items</string>
+
 </resources>

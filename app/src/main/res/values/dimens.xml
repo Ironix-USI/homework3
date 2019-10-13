@@ -2,4 +2,5 @@
 <resources>
     <dimen name="image_size_width">100dp</dimen>
     <dimen name="image_size_height">100dp</dimen>
+    <dimen name="regular_margin">16dp</dimen>
 </resources>

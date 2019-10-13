@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import java.util.*;
 
 /**
@@ -37,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<View> items = new ArrayList<>();
     private ArrayList<String> order = new ArrayList<>();
-    private Button buttonAdd;
-
+    private Button btnAdd;
     /**
      * Maintains the Activity state across configuration changes.
      *
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         items.add(findViewById(R.id.item8));
         items.add(findViewById(R.id.item9));
         items.add(findViewById(R.id.item10));
-        buttonAdd = (Button) findViewById(R.id.add);
+        btnAdd = (Button) findViewById(R.id.add);
 
         // Restore the state.
         if (savedInstanceState != null) {
@@ -103,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clear(View view) {
+        if (order.size() > 9) {
+            btnAdd.setEnabled(true);
+        }
 
         for(int i=0; i<order.size(); i++) {
             String textViewID = "item" + (i + 1);
@@ -110,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
             TextView emp = findViewById(resID);
             emp.setText((""));
         }
+
 //        TextView emp = findViewById(R.id.item1);
 //        emp.setText("");
 //        emp = findViewById(R.id.item2);
@@ -148,12 +152,25 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ITEM_REQUEST) {
             // Test to make sure the intent reply result was good.
             if (resultCode == RESULT_OK) {
+                // get the new item for second activity
                 String it = data.getStringExtra(SecondActivity.EXTRA_ITEMS);
-                order.add(it);
-                for (int i = 0; i < order.size(); i++) {
-                    TextView it1 = (TextView) items.get(i);
-                    it1.setVisibility(View.VISIBLE);
-                    it1.setText(order.get(i));
+                // check if the item if it exist not put it otherwise add it
+                if (order.contains(it)){
+                    Toast toast1 = Toast.makeText(
+                            this, "Item already exists in the list!", Toast.LENGTH_SHORT
+                    );
+                    toast1.show();
+                } else {
+                    // print all list
+                    order.add(it);
+                    if (order.size() > 9){
+                        btnAdd.setEnabled(false);
+                    }
+                    for (int i = 0; i < order.size(); i++) {
+                        TextView it1 = (TextView) items.get(i);
+                        it1.setVisibility(View.VISIBLE);
+                        it1.setText(order.get(i));
+                    }
                 }
             }
         }
